@@ -1,15 +1,9 @@
-var chai = require('chai'),
-    assert = chai.assert,
-    Reflux = require('../lib'),
-    internalUtils = require('../lib/utils');
+import chai, { assert } from 'chai';
+import asPromised from 'chai-as-promised';
+import { default as Reflux } from '../src';
+import * as internalUtils from '../src/utils';
 
-chai.use(require('chai-as-promised'));
-
-describe('Export internal EventEmitter', function() {
-    it('should be the original', function() {
-        assert.equal(internalUtils.EventEmitter, Reflux.EventEmitter);
-    });
-});
+chai.use(asPromised);
 
 describe('Switching the used EventEmitter to Node\'s internal', function() {
     var original;
@@ -24,7 +18,7 @@ describe('Switching the used EventEmitter to Node\'s internal', function() {
     });
 
     it('should not be the original', function() {
-        assert.notEqual(original, Reflux.EventEmitter);
+        assert.notEqual(original, internalUtils.EventEmitter);
     });
 
     it('should have the same interface', function() {

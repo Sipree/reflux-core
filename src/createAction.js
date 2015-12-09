@@ -1,7 +1,7 @@
-var _ = require("./utils"),
-    ActionMethods = require("./ActionMethods"),
-    PublisherMethods = require("./PublisherMethods"),
-    Keep = require("./Keep");
+import * as _ from "./utils";
+import ActionMethods from "./ActionMethods";
+import PublisherMethods from "./PublisherMethods";
+import Keep from "./Keep";
 
 var allowed = { preEmit: 1, shouldEmit: 1 };
 
@@ -12,7 +12,7 @@ var allowed = { preEmit: 1, shouldEmit: 1 };
  *
  * @param {Object} definition The action object definition
  */
-var createAction = function(definition) {
+export default function createAction(definition) {
 
     definition = definition || {};
     if (!_.isObject(definition)){
@@ -53,8 +53,7 @@ var createAction = function(definition) {
     }, PublisherMethods, ActionMethods, definition);
 
     var functor = function() {
-        var triggerType = functor.sync ? "trigger" :
-            ( _.environment.hasPromise ? "triggerPromise" : "triggerAsync" );
+        var triggerType = functor.sync ? "trigger" : "triggerAsync";
         return functor[triggerType].apply(functor, arguments);
     };
 
@@ -64,6 +63,4 @@ var createAction = function(definition) {
 
     return functor;
 
-};
-
-module.exports = createAction;
+}

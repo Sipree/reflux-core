@@ -1,6 +1,6 @@
-var Reflux = require('../lib'),
-    sinon = require('sinon'),
-    assert = require('chai').assert;
+import { assert } from 'chai';
+import sinon from 'sinon';
+import Reflux from '../src';
 
 describe("overriding preEmit",function(){
     describe("for lone action",function(){
